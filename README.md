@@ -1,4 +1,4 @@
-Virtualhost Manage Script
+Rimauwaf Virtualhost Manage Script
 ===========
 
 Bash Script to allow create or delete apache/nginx virtual hosts on Ubuntu on a quick way using by new version rimauwaf panel.
