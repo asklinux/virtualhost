@@ -6,6 +6,7 @@ TEXTDOMAIN=virtualhost
 action=$1
 domain=$2
 rootDir=$3
+modsec=$4
 owner=$(who am i | awk '{print $1}')
 sitesEnable='/etc/nginx/sites-enabled/'
 sitesAvailable='/etc/nginx/sites-available/'
@@ -69,7 +70,8 @@ if [ "$action" == 'create' ]
 			root $rootDir;
 			index index.php index.html index.htm;
 			server_name $domain;
-
+			modsecurity $modsec;
+			modsecurity_rules_file /etc/nginx/modsec/main.conf;
 			# serve static files directly
 			location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {
 				access_log off;

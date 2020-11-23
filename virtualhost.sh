@@ -6,6 +6,7 @@ TEXTDOMAIN=virtualhost
 action=$1
 domain=$2
 rootDir=$3
+modsec=$4
 owner=$(who am i | awk '{print $1}')
 apacheUser=$(ps -ef | egrep '(httpd|apache2|apache)' | grep -v root | head -n1 | awk '{print $1}')
 email='webmaster@localhost'
@@ -71,6 +72,7 @@ if [ "$action" == 'create' ]
 		### create virtual host rules file
 		if ! echo "
 		<VirtualHost *:80>
+			SecRuleEngine $modsec
 			ServerAdmin $email
 			ServerName $domain
 			ServerAlias $domain
