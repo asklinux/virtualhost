@@ -13,6 +13,7 @@ sitesEnable='/etc/httpd/conf.d/'
 sitesAvailable='/etc/httpd/conf.d/'
 userDir='/var/www/'
 sitesAvailabledomain=$sitesAvailable$domain.conf
+siteRules= $sitesAvailable$domain-rules.conf
 
 ### don't modify from here unless you know what you are doing ####
 
@@ -75,6 +76,7 @@ if [ "$action" == 'create' ]
 			ServerAdmin $email
 			ServerName $domain
 			ServerAlias $domain
+			IncludeOptional $siteRules
 			DocumentRoot $rootDir
 			<Directory />
 				AllowOverride All
@@ -93,6 +95,11 @@ if [ "$action" == 'create' ]
 			exit;
 		else
 			echo -e $"\nNew Virtual Host Created\n"
+		fi
+		### Add rules file for domain
+		if ! echo "## test rules file $domain" > $siteRules
+		then
+			echo $"ERROR: Not able to wirte in /etc/httpd/conf.d/"
 		fi
 
 		### Add domain in /etc/hosts
@@ -131,12 +138,14 @@ if [ "$action" == 'create' ]
 
 			### disable website
 			rm -f $sitesEnable/$domain.conf
+			rm -f $sitesEnable/$domain-rules.conf
+			rm -rf $userDir/$domain
 
 			### restart Apache
 			systemctl restart httpd
 
 			### Delete virtual host rules files
-			rm $sitesAvailabledomain
+			##rm $sitesAvailabledomain
 		fi
 
 		### check if directory exists or not
