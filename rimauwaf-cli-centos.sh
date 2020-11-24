@@ -9,8 +9,8 @@ rootDir=$3
 modsec=$4
 owner=$(who am i | awk '{print $1}')
 email='webmaster@localhost'
-sitesEnable='/etc/httpd/sites-enabled/'
-sitesAvailable='/etc/httpd/sites-available/'
+sitesEnable='/etc/httpd/conf.d/'
+sitesAvailable='/etc/httpd/conf.d/'
 userDir='/var/www/'
 sitesAvailabledomain=$sitesAvailable$domain.conf
 
@@ -110,8 +110,8 @@ if [ "$action" == 'create' ]
 			chown -R $owner:$owner $rootDir
 		fi
 
-		### enable website
-		cp $sitesAvailabledomain $sitesEnable/$domain.conf
+		### enable website not use in centos 
+		###cp $sitesAvailabledomain $sitesEnable/$domain.conf
 
 		### restart Apache
         systemctl restart httpd
