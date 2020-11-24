@@ -5,6 +5,11 @@ Bash Script to allow create or delete apache/nginx virtual hosts on Ubuntu on a 
 
 ## Installation ##
 
+For centos 8 install
+dnf -y install mod_security
+dnf -y install mod_security_crs
+
+
 1. Download the script
 2. Apply permission to execute:
 
